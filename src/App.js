@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Box from "./components/Box.jsx";
 import { useState } from "react";
