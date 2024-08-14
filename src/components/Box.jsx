@@ -1,11 +1,11 @@
 import React from "react";
 
-const Box = ({ title, item }) => {
+const Box = ({ title, item, result }) => {
   return (
-    <div className="box">
+    <div className={`box  ${result}`}>
       <h1>{title}</h1>
-      <img className="item-img" src={item && item.img} />
-      <h2>Win</h2>
+      <img className="itemImg" src={item && item.img} />
+      <h2>{result}</h2>
     </div>
   );
 };

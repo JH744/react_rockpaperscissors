@@ -20,15 +20,54 @@ const choice = {
 
 function App() {
   const [userSelect, setUserSelect] = useState(null);
+  const [computerSelect, setComputerSelect] = useState(null);
+  const [result, setResult] = useState("");
+  const [comResult, setComResult] = useState("");
+
+  /** 클릭이벤트 : 가위바위보 승부 */
   const play = (userChoice) => {
     setUserSelect(choice[userChoice]);
+    let computerChoice = randomChoice();
+    setComputerSelect(choice[computerChoice]);
+    // 승부 결과를 스테이트 저장
+    setResult(judgement(userChoice, computerChoice)); // 유저 결과
+    setComResult(judgement(computerChoice, userChoice)); //computer 결과
+  };
+
+  /** 승패 여부를 가리는 메소드 */
+  const judgement = (user, com) => {
+    console.log("user", user, "com", com);
+
+    //승패 로직
+    if (user == com) return "tie";
+
+    if (user == "rock") {
+      return com == "paper" ? "lose" : "win";
+    }
+    if (user == "scissor") {
+      return com == "rock" ? "lose" : "win";
+    }
+    if (user == "paper") {
+      return com == "scissor" ? "lose" : "win";
+    }
+  };
+
+  /**컴퓨터 랜덤 선택 메소드*/
+  const randomChoice = () => {
+    let itemArray = Object.keys(choice); //객체에 키값만 뽑아 array로 만들어주는 함수.
+    console.log("itemArray", itemArray); //['rock', 'scissor', 'paper']
+    console.log("itemArray의 길이", itemArray.length); // 3
+    let randomItem = Math.floor(Math.random() * itemArray.length); //0~2까지 랜덤한 정수를 뽑는 로직
+    console.log("randomItem", randomItem);
+    let final = itemArray[randomItem];
+    return final;
   };
 
   return (
     <div>
       <div className="main">
-        <Box title="You" item={userSelect} />
-        <Box title="Computer" item={userSelect} />
+        <Box title="You" item={userSelect} result={result} />
+        <Box title="Computer" item={computerSelect} result={comResult} />
       </div>
       <div className="main">
         <button onClick={() => play("scissor")}>가위</button>
